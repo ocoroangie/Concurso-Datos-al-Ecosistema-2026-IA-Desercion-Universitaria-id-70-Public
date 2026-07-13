@@ -179,8 +179,8 @@ Incluido en el repositorio.
 
 # 👥 Equipo de desarrollo
 
-- **Angie Melissa Ocoro Hurtado**
-- **Juan Camilo López Quintana**
+- **Angie Melissa Ocoro Hurtado cc.1192807085**
+- **Juan Camilo López Quintana cc.1118310951**
 
 ---
 
