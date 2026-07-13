@@ -39,7 +39,7 @@ function HomePage() {
             <br />
             Universidad del Valle
           </div>
-          <Link to="/observatorio" className="primary-btn">
+          <Link to="/observatorio" className="primary-btn hero-start">
             Comenzar
           </Link>
         </div>

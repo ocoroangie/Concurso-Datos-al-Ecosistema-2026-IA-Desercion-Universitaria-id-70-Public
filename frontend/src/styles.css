@@ -214,6 +214,50 @@ textarea {
   box-shadow: 0 16px 36px rgba(59, 130, 246, 0.4);
 }
 
+/* Larger hero call-to-action */
+.hero-start {
+  padding: 18px 36px;
+  font-size: 1.15rem;
+  border-radius: 16px;
+  box-shadow: 0 20px 48px rgba(37, 99, 235, 0.34);
+}
+
+/* Navigation Bar */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 28px;
+  position: sticky;
+  top: 8px;
+  z-index: 60;
+}
+
+.nav-logo img {
+  height: 44px;
+  border-radius: 8px;
+  box-shadow: 0 8px 18px rgba(2,6,23,0.45);
+}
+
+.nav-links {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #f8fbff;
+  background: rgba(255,255,255,0.03);
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.nav-links a:hover {
+  background: rgba(59,130,246,0.12);
+}
+
 .secondary-btn {
   background: rgba(255, 255, 255, 0.08);
   color: #f8fbff;
