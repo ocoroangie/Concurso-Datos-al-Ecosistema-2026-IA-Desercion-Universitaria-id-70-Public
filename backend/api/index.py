@@ -1,9 +1,9 @@
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
-backend_path = ROOT / "backend"
-if str(backend_path) not in sys.path:
-    sys.path.insert(0, str(backend_path))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
-from app.main import app  # noqa: E402,F401
+if str(BASE_DIR) not in sys.path:
+    sys.path.insert(0, str(BASE_DIR))
+
+from app.main import app
