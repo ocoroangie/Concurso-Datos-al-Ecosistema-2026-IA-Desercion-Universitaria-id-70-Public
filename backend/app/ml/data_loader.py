@@ -3,7 +3,7 @@ import pandas as pd
 from pathlib import Path
 from typing import Any, Dict
 from urllib.request import urlopen
-from datetime import datetime
+from datetime import datetime, timezone
 
 ROOT_DIR = Path(__file__).resolve().parents[2]
 DATA_DIR = ROOT_DIR / "data"
@@ -40,7 +40,7 @@ def get_dataset_summary() -> Dict[str, Any]:
         "total_programs": int(df["NOMBRE_PROGRAMA"].nunique()) if "NOMBRE_PROGRAMA" in df.columns else 0,
         "columns": df.columns.tolist(),
         "n_unique": {col: int(df[col].nunique()) for col in df.columns},
-        "last_update": datetime.fromtimestamp(DATASET_PATH.stat().st_mtime).isoformat(),
+        "last_update": datetime.now(timezone.utc).isoformat(),
     }
 
 

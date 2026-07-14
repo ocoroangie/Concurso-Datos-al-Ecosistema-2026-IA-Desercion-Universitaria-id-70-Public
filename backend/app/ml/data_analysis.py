@@ -1,6 +1,6 @@
 import pandas as pd
 from pathlib import Path
-from datetime import datetime
+from datetime import datetime, timezone
 from .data_loader import load_dataset, DATASET_PATH
 from .model_loader import load_model, load_model_info
 
@@ -29,7 +29,7 @@ def get_exploration_data():
             "numeric_variables": len(numeric_columns),
             "missing_values": int(missing.sum()),
             "duplicates": duplicates,
-            "last_update": datetime.fromtimestamp(DATASET_PATH.stat().st_mtime).isoformat(),
+            "last_update": datetime.now(timezone.utc).isoformat(),
         },
         "columns": df.columns.tolist(),
         "types": df.dtypes.astype(str).to_dict(),
