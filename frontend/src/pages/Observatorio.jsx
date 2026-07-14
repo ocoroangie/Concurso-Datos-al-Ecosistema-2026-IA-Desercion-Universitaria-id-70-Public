@@ -23,11 +23,11 @@ import {
 } from "recharts";
 
 const mockKpis = {
-  total_records: 12456,
-  total_datasets: 3,
-  total_programs: 142,
+  total_records: 0,
+  total_datasets: 1,
+  total_programs: 0,
   model: "RandomForest v1.0",
-  last_update: "2026-07-10",
+  last_update: "—",
 };
 
 const trendData = [
@@ -62,7 +62,7 @@ const variablesImportance = [
 function Observatorio() {
   const [filters, setFilters] = useState({
     period: "2026-I",
-    university: "Universidad del Valle",
+    university: "TUNJA",
     program: "",
     type: "",
   });
@@ -114,38 +114,39 @@ function Observatorio() {
             KPIs, visualizaciones y hallazgos generados por IA.
           </p>
         </div>
+        <div className="observatory-time">Hora: 14:30</div>
       </section>
 
       <section className="kpi-row">
         <KpiCard
           icon="👨‍🎓"
-          value={dashboardData ? dashboardData.total_records.toLocaleString() : mockKpis.total_records.toLocaleString()}
+          value={dashboardData ? dashboardData.total_records.toLocaleString() : "Cargando..."}
           label="Total registros analizados"
-          delta="+4.2%"
+          delta=""
         />
         <KpiCard
           icon="📂"
-          value={dashboardData ? 1 : mockKpis.total_datasets}
+          value={dashboardData ? 1 : "Cargando..."}
           label="Total de datasets"
-          delta="+0"
+          delta=""
         />
         <KpiCard
           icon="🏫"
-          value={mockKpis.total_programs}
+          value={dashboardData ? dashboardData.total_programs?.toLocaleString() ?? "—" : "Cargando..."}
           label="Total programas/instituciones"
-          delta="+1.1%"
+          delta=""
         />
         <KpiCard
           icon="🤖"
-          value={dashboardData ? dashboardData.model : mockKpis.model}
+          value={dashboardData ? dashboardData.model : "Cargando..."}
           label="Modelo de IA utilizado"
           delta={aiStatus.trained ? "Activo" : "Inactivo"}
         />
         <KpiCard
           icon="📅"
-          value={mockKpis.last_update}
+          value={dashboardData ? dashboardData.last_update ?? "—" : "Cargando..."}
           label="Última actualización"
-          delta="hace 3 días"
+          delta=""
         />
       </section>
 

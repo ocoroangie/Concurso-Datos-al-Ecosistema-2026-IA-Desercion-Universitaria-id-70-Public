@@ -4,7 +4,20 @@ import StatCard from "../components/StatCard";
 import DatasetTable from "../components/DatasetTable";
 import ChartCard from "../components/ChartCard";
 import LoadingOverlay from "../components/LoadingOverlay";
-import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from "recharts";
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  PieChart,
+  Pie,
+  Cell,
+  Legend,
+  CartesianGrid,
+  LabelList,
+} from "recharts";
 
 export default function Exploracion() {
   const [data, setData] = useState(null);
@@ -43,21 +56,95 @@ export default function Exploracion() {
       <section className="page-header">
         <div>
           <h1 className="hero-title">Exploración de Datos</h1>
-          <p className="hero-description">Análisis de calidad, distribución y estructura del dataset oficial.</p>
+          <p className="hero-description">Análisis detallado y visualizaciones interactivas del dataset.</p>
         </div>
       </section>
 
       <div className="stats-row">
         <StatCard title="Registros" value={data.summary.total_records.toLocaleString()} />
         <StatCard title="Columnas" value={data.summary.total_columns} />
-        <StatCard title="Variables categóricas" value={data.summary.categorical_variables} />
-        <StatCard title="Variables numéricas" value={data.summary.numeric_variables} />
-        <StatCard title="Valores faltantes" value={data.summary.missing_values} />
+        <StatCard title="Categorías" value={data.summary.categorical_variables} />
+        <StatCard title="Numéricos" value={data.summary.numeric_variables} />
+        <StatCard title="Faltantes" value={data.summary.missing_values} />
+        <StatCard title="Duplicados" value={data.summary.duplicates} />
+      </div>
+
+      <div className="dashboard-grid">
+        <ChartCard
+          title="Distribución de registros por facultad"
+          subtitle="Muestra la cantidad de registros asociados a cada facultad del dataset"
+        >
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={data.faculty_distribution} margin={{ top: 10, right: 0, left: 0, bottom: 10 }}>
+              <XAxis dataKey="name" tick={{ fontSize: 12 }} />
+              <YAxis />
+              <Tooltip formatter={(value) => [value, "Registros"]} />
+              <Bar dataKey="value" fill="#3b82f6" radius={[8, 8, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartCard>
+        <ChartCard
+          title="Distribución de registros por programa"
+          subtitle="Cuenta de registros para los programas con más estudiantes en el dataset"
+        >
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={data.program_distribution} margin={{ top: 10, right: 0, left: 0, bottom: 10 }}>
+              <XAxis dataKey="name" tick={{ fontSize: 12, angle: -25, textAnchor: 'end' }} />
+              <YAxis />
+              <Tooltip formatter={(value) => [value, "Registros"]} />
+              <Bar dataKey="value" fill="#10b981" radius={[8, 8, 0, 0]} />
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartCard>
+      </div>
+
+      <div className="dashboard-grid">
+        <ChartCard
+          title="Distribución por género"
+          subtitle="Cantidad de registros por género en el dataset"
+        >
+          <ResponsiveContainer width="100%" height={300}>
+            <PieChart>
+              <Pie
+                data={data.gender_distribution}
+                dataKey="value"
+                nameKey="name"
+                outerRadius={110}
+                innerRadius={52}
+                paddingAngle={6}
+                label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+              >
+                {data.gender_distribution.map((entry, index) => (
+                  <Cell key={index} fill={index === 0 ? "#22c55e" : index === 1 ? "#38bdf8" : "#f97316"} />
+                ))}
+              </Pie>
+              <Legend verticalAlign="bottom" height={36} formatter={(value) => `Género: ${value}`} />
+              <Tooltip formatter={(value) => [value, "Registros"]} />
+            </PieChart>
+          </ResponsiveContainer>
+        </ChartCard>
+        <ChartCard
+          title="Distribución por estrato socioeconómico"
+          subtitle="Número de registros clasificados por estrato en el dataset"
+        >
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={data.estrato_distribution} margin={{ top: 10, right: 0, left: 0, bottom: 10 }}>
+              <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
+              <XAxis dataKey="name" tick={{ fontSize: 12, angle: -20, textAnchor: 'end' }} />
+              <YAxis />
+              <Tooltip formatter={(value) => [value, "Registros"]} />
+              <Bar dataKey="value" fill="#f59e0b" radius={[10, 10, 0, 0]}>
+                <LabelList dataKey="value" position="top" formatter={(value) => value.toLocaleString()} />
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </ChartCard>
       </div>
 
       <section className="table-section">
         <div className="section-header">
-          <h2>Vista del dataset</h2>
+          <h2>Vista preliminar del dataset</h2>
+          <p>Usa esta tabla para revisar las primeras filas del conjunto de datos cargado.</p>
         </div>
         <DatasetTable
           columns={columns}
@@ -69,56 +156,6 @@ export default function Exploracion() {
           onRowsPerPageChange={(event) => setRowsPerPage(parseInt(event.target.value, 10))}
         />
       </section>
-
-      <div className="dashboard-grid">
-        <ChartCard title="Distribución por género">
-          <ResponsiveContainer width="100%" height={240}>
-            <PieChart>
-              <Pie data={data.gender_distribution} dataKey="value" nameKey="name" outerRadius={90}>
-                {data.gender_distribution.map((entry, index) => (
-                  <Cell key={index} fill={index === 0 ? "#22c55e" : "#38bdf8"} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-        </ChartCard>
-        <ChartCard title="Distribución por facultad">
-          <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={data.faculty_distribution}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="value" fill="#3b82f6" />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartCard>
-      </div>
-
-      <div className="dashboard-grid">
-        <ChartCard title="Distribución por programa">
-          <ResponsiveContainer width="100%" height={240}>
-            <BarChart data={data.program_distribution}>
-              <XAxis dataKey="name" />
-              <YAxis />
-              <Tooltip />
-              <Bar dataKey="value" fill="#22d3ee" />
-            </BarChart>
-          </ResponsiveContainer>
-        </ChartCard>
-        <ChartCard title="Distribución por modalidad">
-          <ResponsiveContainer width="100%" height={240}>
-            <PieChart>
-              <Pie data={data.modalidad_distribution} dataKey="value" nameKey="name" outerRadius={90}>
-                {data.modalidad_distribution.map((entry, index) => (
-                  <Cell key={index} fill={index % 2 ? "#2563eb" : "#0ea5e9"} />
-                ))}
-              </Pie>
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
-        </ChartCard>
-      </div>
     </main>
   );
 }

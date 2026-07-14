@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export default function ChartCard({ title, children }) {
+export default function ChartCard({ title, subtitle, children }) {
   return (
     <motion.section
       className="chart-card"
@@ -10,7 +10,10 @@ export default function ChartCard({ title, children }) {
       transition={{ duration: 0.5 }}
     >
       <div className="chart-card-header">
-        <h3>{title}</h3>
+        <div>
+          <h3>{title}</h3>
+          {subtitle && <p className="chart-card-subtitle">{subtitle}</p>}
+        </div>
       </div>
       <div className="chart-card-body">{children}</div>
     </motion.section>

@@ -23,10 +23,14 @@ export default function FilterBar({ filters, setFilters, onApply, onClear }) {
             setFilters({ ...filters, university: e.target.value })
           }
           size="small"
+          InputLabelProps={{ style: { color: '#fff' } }}
+          sx={{
+            '.MuiOutlinedInput-notchedOutline': { borderColor: 'rgba(255,255,255,0.25)' },
+            '.MuiInputBase-input': { color: '#fff' },
+            '.MuiSvgIcon-root': { color: '#fff' },
+          }}
         >
-          <MenuItem value="Universidad del Valle">
-            Universidad del Valle
-          </MenuItem>
+          <MenuItem value="TUNJA">TUNJA</MenuItem>
           <MenuItem value="Otra">Otra</MenuItem>
         </TextField>
         <TextField

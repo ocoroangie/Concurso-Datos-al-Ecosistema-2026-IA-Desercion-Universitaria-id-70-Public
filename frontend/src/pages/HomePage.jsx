@@ -10,7 +10,7 @@ function HomePage() {
           <div className="logo-frame">
             <img
               src="/logo-cm-ia.jpeg"
-              alt="Logo EduPredict IA"
+              alt="Logo CM IA"
               className="hero-logo"
             />
           </div>
@@ -26,7 +26,7 @@ function HomePage() {
             comprender la deserción universitaria.
           </p>
           <div className="hero-description large-info">
-            Concurso Datos al Ecosistema 2026
+            Concurso Datos al Ecosistema 2026 – Grupo 70
             <br />
             Categoría: Educación – Nivel Intermedio
           </div>

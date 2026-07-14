@@ -5,7 +5,6 @@ const sections = [
   { label: "Inicio", path: "/", icon: "🏠" },
   { label: "Observatorio", path: "/observatorio", icon: "📊" },
   { label: "Exploración", path: "/exploracion", icon: "🔍" },
-  { label: "EDA", path: "/eda", icon: "📈" },
   { label: "Machine Learning", path: "/ml", icon: "🤖" },
   { label: "Hallazgos", path: "/insights", icon: "💡" },
   { label: "Reportes", path: "/reportes", icon: "📄" },
