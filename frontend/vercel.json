@@ -1,8 +1,4 @@
-{
-  "rewrites": [
+      "source": "/api/(.*)",
+      "destination": "https://concurso-datos-al-ecosistema-2026-i-five.vercel.app/api/$1"
+    },
     {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
-  ]
-}
