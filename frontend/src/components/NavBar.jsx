@@ -12,10 +12,11 @@ export default function NavBar() {
         <Link to="/">Inicio</Link>
         <Link to="/observatorio">Observatorio</Link>
         <Link to="/exploracion">Exploración</Link>
+        <Link to="/eda">EDA</Link>
         <Link to="/ml">Machine Learning</Link>
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/insights">Hallazgos</Link>
         <Link to="/reportes">Reportes</Link>
-        <Link to="/about">Acerca</Link>
+        <Link to="/acerca">Acerca</Link>
       </nav>
     </header>
   );

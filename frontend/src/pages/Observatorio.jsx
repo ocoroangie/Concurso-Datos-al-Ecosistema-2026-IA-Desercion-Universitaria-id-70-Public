@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../services/api";
 import KpiCard from "../components/KpiCard";
 import FilterBar from "../components/FilterBar";
 import ChartCard from "../components/ChartCard";
@@ -78,8 +78,8 @@ function Observatorio() {
   });
 
   useEffect(() => {
-    axios
-      .get("/api/dashboard")
+    api
+      .get("/dashboard")
       .then((response) => {
         setDashboardData(response.data);
         setAiStatus((current) => ({

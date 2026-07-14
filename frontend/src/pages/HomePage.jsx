@@ -3,46 +3,31 @@ import { Link } from "react-router-dom";
 function HomePage() {
   return (
     <main className="hero-page">
-      <section className="hero-card">
-        <div className="hero-visual" aria-hidden="true">
-          <div className="orb orb-one"></div>
-          <div className="orb orb-two"></div>
-          <div className="logo-frame">
-            <img
-              src="/logo-cm-ia.jpeg"
-              alt="Logo EduPredict IA"
-              className="hero-logo"
-            />
-          </div>
-          <div className="panel">
-            <span>Predicción</span>
-            <strong>Educación</strong>
-            <small>+ IA</small>
-          </div>
-        </div>
-        <div className="hero-copy centered-copy">
-          <p className="hero-description hero-title blue-underline">
-            Desarrollar análisis estadísticos y de Machine Learning para
-            comprender la deserción universitaria.
+      <section className="hero-card hero-ai-card">
+        <div className="hero-copy">
+          <div className="eyebrow">Observatorio IA</div>
+          <h1 className="hero-title">
+            Inteligencia creativa para comprender la deserción universitaria.
+          </h1>
+          <p className="hero-description large-info">
+            Plataforma innovadora que combina análisis oficial, visualizaciones estratégicas y predicción con modelos de IA.
           </p>
-          <div className="hero-description large-info">
-            Concurso Datos al Ecosistema 2026
-            <br />
-            Categoría: Educación – Nivel Intermedio
+          <div className="hero-actions">
+            <Link to="/observatorio" className="primary-btn hero-start">
+              Explorar observatorio
+            </Link>
           </div>
-          <div className="hero-description large-info">
-            Autores:
-            <br />
-            Angie Melissa Ocoro Hurtado
-            <br />
-            Juan Camilo Lopez Quintana
-            <br />
-            Universidad del Valle
-          </div>
-          <Link to="/observatorio" className="primary-btn hero-start">
-            Comenzar
-          </Link>
         </div>
+        <aside className="hero-panel">
+          <div className="panel-title">Lo que vas a encontrar</div>
+          <ul className="panel-list">
+            <li>Exploración profunda del dataset oficial</li>
+            <li>Métricas de IA para deserción</li>
+            <li>Hallazgos inteligentes listos para acción</li>
+            <li>Reportes ejecutivos y visualizaciones</li>
+          </ul>
+          <div className="hero-chip">Diseño creativo · IA explicable · datos oficiales</div>
+        </aside>
       </section>
     </main>
   );
