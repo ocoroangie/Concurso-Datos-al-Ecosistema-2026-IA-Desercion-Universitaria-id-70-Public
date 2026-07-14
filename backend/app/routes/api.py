@@ -19,13 +19,16 @@ def get_dashboard():
 
     model = load_model()
     model_info = load_model_info()
+    model_name = model_info.get("model_name") or ("random_forest" if model is not None else "not trained")
     return {
         "total_records": summary["total_records"],
         "total_datasets": 1,
+        "total_programs": summary.get("total_programs", 0),
         "total_variables": summary["total_variables"],
-        "model": "trained" if model is not None else "not trained",
+        "model": model_name,
         "last_update": summary.get("last_update"),
         "columns": summary["columns"],
+        "path": summary.get("path"),
         "model_status": model_info,
     }
 

@@ -120,7 +120,7 @@ function Observatorio() {
       <section className="kpi-row">
         <KpiCard
           icon="👨‍🎓"
-          value={dashboardData ? dashboardData.total_records.toLocaleString() : "Cargando..."}
+          value={dashboardData?.total_records != null ? dashboardData.total_records.toLocaleString() : "Cargando..."}
           label="Total registros analizados"
           delta=""
         />
@@ -138,7 +138,7 @@ function Observatorio() {
         />
         <KpiCard
           icon="🤖"
-          value={dashboardData ? dashboardData.model : "Cargando..."}
+          value={dashboardData?.model ?? "Cargando..."}
           label="Modelo de IA utilizado"
           delta={aiStatus.trained ? "Activo" : "Inactivo"}
         />

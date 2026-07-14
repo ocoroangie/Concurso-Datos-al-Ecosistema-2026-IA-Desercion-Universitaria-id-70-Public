@@ -33,6 +33,7 @@ def train_model(df: pd.DataFrame, target_col: str = "NOMBRE_ESTADO") -> dict:
     metrics = compute_metrics(y_test, y_pred)
     model_info = {
         "trained": True,
+        "model_name": "RandomForestClassifier",
         "target_col": target_col,
         "feature_names": X.columns.tolist(),
         "target_labels": [str(label) for label in target_labels.tolist()],
