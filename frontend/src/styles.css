@@ -224,17 +224,27 @@ textarea {
   box-shadow: 0 20px 48px rgba(37, 99, 235, 0.34);
 }
 
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #06111f 0%, #0f2747 55%, #1f4b74 100%);
+  padding-top: 96px; /* ensure fixed navbar does not cover page content */
+}
+
 /* Navigation Bar */
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 12px 28px;
-  position: sticky;
-  top: 8px;
-  z-index: 60;
-  border-bottom: 1px solid rgba(255,255,255,0.06); /* subtle navigation line */
+  padding: 16px 28px;
+  position: fixed;
+  inset: 0 0 auto 0;
+  width: 100%;
+  background: rgba(6, 17, 31, 0.94);
+  backdrop-filter: blur(14px);
+  z-index: 999;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 
 .nav-logo img {
