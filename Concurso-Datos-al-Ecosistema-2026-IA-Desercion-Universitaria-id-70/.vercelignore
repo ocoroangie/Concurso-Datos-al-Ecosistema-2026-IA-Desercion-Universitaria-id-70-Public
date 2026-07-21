@@ -1,9 +1,0 @@
-.venv
-__pycache__
-*.pyc
-.env
-.git
-.gitignore
-README.md
-backend/app/database
-frontend

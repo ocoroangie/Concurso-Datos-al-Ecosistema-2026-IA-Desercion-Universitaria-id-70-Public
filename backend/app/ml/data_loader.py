@@ -1,14 +1,27 @@
 import json
-import pandas as pd
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict
 from urllib.request import urlopen
-from datetime import datetime, timezone
 
-ROOT_DIR = Path(__file__).resolve().parents[1]
+import pandas as pd
+
+# ===========================================
+# RUTAS
+# ===========================================
+
+# backend/
+ROOT_DIR = Path(__file__).resolve().parents[2]
+
 DATA_DIR = ROOT_DIR / "data"
 RAW_DIR = DATA_DIR / "raw"
+
 DATASET_PATH = DATA_DIR / "DATASET_DESERCION_LIMPIO.csv"
+
+# ===========================================
+# FUENTES DE DATOS
+# ===========================================
+
 SOURCES = [
     {
         "name": "desercion_academica",
@@ -25,40 +38,92 @@ SOURCES = [
 ]
 
 
+# ===========================================
+# CARGAR DATASET
+# ===========================================
+
 def load_dataset() -> pd.DataFrame:
+
     if not DATASET_PATH.exists():
-        raise FileNotFoundError(f"Dataset file not found: {DATASET_PATH}")
+        raise FileNotFoundError(
+            "\n"
+            "=====================================\n"
+            "NO SE ENCONTRÓ EL DATASET\n"
+            f"Ruta buscada:\n{DATASET_PATH}\n"
+            "=====================================\n"
+        )
+
     return pd.read_csv(DATASET_PATH)
 
 
+# ===========================================
+# INFORMACIÓN DEL DATASET
+# ===========================================
+
 def get_dataset_summary() -> Dict[str, Any]:
+
     df = load_dataset()
+
     return {
         "path": str(DATASET_PATH),
+        "dataset_exists": DATASET_PATH.exists(),
         "total_records": int(df.shape[0]),
         "total_variables": int(df.shape[1]),
-        "total_programs": int(df["NOMBRE_PROGRAMA"].nunique()) if "NOMBRE_PROGRAMA" in df.columns else 0,
+        "total_programs": (
+            int(df["NOMBRE_PROGRAMA"].nunique())
+            if "NOMBRE_PROGRAMA" in df.columns
+            else 0
+        ),
         "columns": df.columns.tolist(),
-        "n_unique": {col: int(df[col].nunique()) for col in df.columns},
+        "n_unique": {
+            col: int(df[col].nunique())
+            for col in df.columns
+        },
         "last_update": datetime.now(timezone.utc).isoformat(),
     }
 
 
+# ===========================================
+# ACTUALIZAR DATOS DESDE DATOS.GOV.CO
+# ===========================================
+
 def update_dataset() -> Dict[str, Any]:
+
     RAW_DIR.mkdir(parents=True, exist_ok=True)
+
     summary = {"sources": []}
+
     for source in SOURCES:
+
         target_path = RAW_DIR / f"{source['name']}.json"
+
         with urlopen(source["url"] + "?$limit=5000") as response:
             data = json.loads(response.read().decode("utf-8"))
+
         with open(target_path, "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=2)
+            json.dump(
+                data,
+                f,
+                ensure_ascii=False,
+                indent=2,
+            )
+
         df = pd.json_normalize(data)
+
         csv_path = RAW_DIR / f"{source['name']}.csv"
-        df.to_csv(csv_path, index=False)
-        summary["sources"].append({
-            "name": source["name"],
-            "records": int(df.shape[0]),
-            "csv": str(csv_path),
-        })
+
+        df.to_csv(
+            csv_path,
+            index=False,
+            encoding="utf-8-sig",
+        )
+
+        summary["sources"].append(
+            {
+                "name": source["name"],
+                "records": int(df.shape[0]),
+                "csv": str(csv_path),
+            }
+        )
+
     return summary
