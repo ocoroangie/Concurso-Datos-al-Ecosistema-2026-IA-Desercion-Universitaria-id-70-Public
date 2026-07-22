@@ -6,5 +6,5 @@ __pycache__
 .gitignore
 README.md
 *.joblib
-backend/models
 backend/app/database
+frontend/node_modules
